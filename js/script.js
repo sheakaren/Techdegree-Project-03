@@ -3,8 +3,9 @@ const $jobTitle = $('#title');
 const $otherJobTitle = $('#other-title');
 
 // Text field that will be revealed when the "Other" option is selected from the "Job Role" drop down menu.
-$($jobTitle).on('change', function() {
-if($(':selected').val() === 'other'){
+$otherJobTitle.hide();
+$($jobTitle).change(function() {
+if($jobTitle.val() === 'other'){
     $otherJobTitle.show();
   } else {
     $otherJobTitle.hide();
