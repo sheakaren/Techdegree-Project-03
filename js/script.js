@@ -1,21 +1,54 @@
 // Variables
 const $jobTitle = $('#title');
 const $otherJobTitle = $('#other-title');
+const $shirtDesign = $('#design');
+const $shirtColor = $('#colors-js-puns');
 
-// Text field that will be revealed when the "Other" option is selected from the "Job Role" drop down menu.
+// -------------------------------------------------------------------------------------------------------------
+
+
+// Hides the "other" job text field upon load
 $otherJobTitle.hide();
+// Text field that will be revealed when the "Other" option is selected from the "Job Role" drop down menu.
 $($jobTitle).change(function() {
-if($jobTitle.val() === 'other'){
-    $otherJobTitle.show();
-  } else {
-    $otherJobTitle.hide();
+  if($jobTitle.val() === 'other'){
+      $otherJobTitle.show();
+    } else {
+      $otherJobTitle.hide();
   }
 });
 
+// -------------------------------------------------------------------------------------------------------------
+
+// Hides the shirt color option upon load
+$shirtColor.hide();
 // For the T-Shirt "Color" menu, only display the color options that match the design selected in the "Design" menu.
 // If the user selects "Theme - JS Puns" then the color menu should only display "Cornflower Blue," "Dark Slate Grey," and "Gold."
 // If the user selects "Theme - I ♥ JS" then the color menu should only display "Tomato," "Steel Blue," and "Dim Grey."
+$($shirtDesign).change(function(){
+  if($shirtDesign.val() === 'js puns'){
+    $shirtColor.show();
+      $('#color option[value="cornflowerblue"]').show();
+      $('#color option[value="darkslategrey"]').show();
+      $('#color option[value="gold"]').show();
+      $('#color option[value="tomato"]').hide();
+      $('#color option[value="steelblue"]').hide();
+      $('#color option[value="dimgrey"]').hide();
+  } else if ($shirtDesign.val() === 'heart js') {
+   $shirtColor.show();
+      $('#color option[value="tomato"]').show();
+      $('#color option[value="steelblue"]').show();
+      $('#color option[value="dimgrey"]').show();
+      $('#color option[value="cornflowerblue"]').hide();
+      $('#color option[value="darkslategrey"]').hide();
+      $('#color option[value="gold"]').hide();
+    }
+});
+
+// I'm just having trouble getting this part right:
 // When a new theme is selected from the "Design" menu, the "Color" field and drop down menu is updated.
+
+// -------------------------------------------------------------------------------------------------------------
 
 // Some events are at the same day and time as others. If the user selects a workshop, don't allow selection of a workshop at the same day and time --
     // you should disable the checkbox and visually indicate that the workshop in the competing time slot isn't available.
