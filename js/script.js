@@ -1,7 +1,15 @@
 // Variables
+const $jobTitle = $('#title');
+const $otherJobTitle = $('#other-title');
 
-
-// Give the field an id of “other-title,” and add the placeholder text of "Your Job Role".
+// Text field that will be revealed when the "Other" option is selected from the "Job Role" drop down menu.
+$($jobTitle).on('change', function() {
+if($(':selected').val() === 'other'){
+    $otherJobTitle.show();
+  } else {
+    $otherJobTitle.hide();
+  }
+});
 
 // For the T-Shirt "Color" menu, only display the color options that match the design selected in the "Design" menu.
 // If the user selects "Theme - JS Puns" then the color menu should only display "Cornflower Blue," "Dark Slate Grey," and "Gold."

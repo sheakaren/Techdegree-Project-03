@@ -23,7 +23,8 @@
         <legend>Basic Info</legend>
 
         <label for="name">Name:</label>
-    <!-- When the page first loads, the first text field should be in focus by default. I used the autofocus attribute-->
+    <!-- When the page first loads, the first text field should be in focus by default.
+    I used the HTML autofocus attribute instead of a jQuery or JavaScript feature for progressive enhancement purposes-->
         <input type="text" id="name" name="user_name" autofocus>
 
         <label for="mail">Email:</label>
@@ -38,7 +39,8 @@
           <option value="student">Student</option>
           <option value="other">Other</option>
         </select>
-    <!-- Include a text field that will be revealed when the "Other" option is selected from the "Job Role" drop down menu. -->
+    <!-- Create an "other" text field
+         Give the field an id of “other-title,” and add the placeholder text of "Your Job Role". -->
         <input type="text" id="other-title" placeholder="Your Job Role">
       </fieldset>
 
