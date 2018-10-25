@@ -3,6 +3,7 @@ const $jobTitle = $("#title");
 const $otherJobTitle = $("#other-title");
 const $shirtDesign = $("#design");
 const $shirtColor = $("#colors-js-puns");
+const $classes = $("#classes");
 
 // -------------------------------------------------------------------------------------------------------------
 
@@ -51,6 +52,8 @@ const $frameworks = $('input[name="js-frameworks"]');
 const $jsLibs = $('input[name="js-libs"]');
 const $express = $('input[name="express"]');
 const $node = $('input[name="node"]');
+const $buildTools = $('input[name="build-tools"]');
+const $npm = $('input[name="npm"]');
 // Some events are at the same day and time as others. If the user selects a workshop, don't allow selection of a workshop at the same day and time --
 // you should disable the checkbox and visually indicate that the workshop in the competing time slot isn't available.
 // When a user unchecks an activity, make sure that competing activities (if there are any) are no longer disabled.
@@ -93,6 +96,30 @@ $node.change(function() {
 
 // As a user selects activities, a running total should display below the list of checkboxes.
 // For example, if the user selects "Main Conference", then Total: $200 should appear. If they add 1 workshop, the total should change to Total: $300.
+
+// Create a new div to display the Total
+$activities.append('<br><div class="totalDiv"><label name="total-to-pay" class="totalCost">Total: </label></div>');
+
+// add variables related to the newly created DIV
+const $totalDiv = $(".totalDiv");
+const $totalCost = $(".totalCost");
+let $total = 0;
+
+// Hide the div on load
+$totalDiv.hide();
+
+// Function to add total cost
+$('input:checkbox').on('change', function() {
+            if ($(this).is(':checked')) {
+              $totalDiv.show();
+              $total += +this.value;
+              $totalCost.html('Total: $' + parseInt($total));
+            } else if ($(this).not(':checked')) {
+              $total -= +this.value;
+              $totalCost.html('Total: $' + parseInt($total));
+            }
+            });
+
 // -------------------------------------------------------------------------------------------------------------
 // Display payment sections based on the payment option chosen in the select menu.
 // The "Credit Card" payment option should be selected by default. Display the #credit-card div, and hide the "PayPal" and "Bitcoin" information.
