@@ -118,15 +118,54 @@ $('input:checkbox').on('change', function() {
               $total -= +this.value;
               $totalCost.html('Total: $' + parseInt($total));
             }
-            });
+          });
 
 // -------------------------------------------------------------------------------------------------------------
+
+// variables
+const $cardInfo = $('#credit-card');
+const $paymentOption = $('#payment');
+const $paypal = $('#paypal');
+const $bitcoin = $('#bitcoin');
+const $selectMethod = $('#selectMethod');
+
+// Display the #credit-card div, and hide the "PayPal" and "Bitcoin" information.
+
+// Hides Paypal and Bitcoin divs on load
+$paypal.hide();
+$bitcoin.hide();
+
+// The "Credit Card" payment option should be selected by default.
+$paymentOption[0].selectedIndex = 1;
+
 // Display payment sections based on the payment option chosen in the select menu.
-// The "Credit Card" payment option should be selected by default. Display the #credit-card div, and hide the "PayPal" and "Bitcoin" information.
 // Payment option in the select menu should match the payment option displayed on the page.
 // When a user selects the "PayPal" payment option, the PayPal information should display, and the credit card and “Bitcoin” information should be hidden.
 // When a user selects the "Bitcoin" payment option, the Bitcoin information should display, and the credit card and “PayPal” information should be hidden.
+$($paymentOption).change(function() {
+  if ($(this).val() === "credit card") {
+    $cardInfo.show();
+  } else {
+    $cardInfo.hide();
+  }
+  if ($(this).val() === "paypal") {
+    $paypal.show();
+  } else {
+    $paypal.hide();
+  }
+  if ($(this).val() === "bitcoin") {
+    $bitcoin.show();
+  } else {
+    $bitcoin.hide();
+  }
+});
+
+
+
+// ??????????????????? H E L P ???????????????????
 // NOTE: The user should not be able to select the "Select Payment Method" option from the payment select menu, because the user should not be able to submit the form without a chosen payment option.
+$("$paymentOption option:selected").attr('disabled','disabled')
+       .siblings().removeAttr('disabled');
 
 // If any of the following validation errors exist, prevent the user from submitting the form:
 // Name field can't be blank.
