@@ -1,9 +1,11 @@
 // Variables
-const $jobTitle = $("#title");
+const $jobTitle = $("#userTitle");
 const $otherJobTitle = $("#other-title");
 const $shirtDesign = $("#design");
 const $shirtColor = $("#colors-js-puns");
 const $classes = $("#classes");
+const $selectJob = $('#select-job');
+const $selectTheme = $('#select-theme');
 
 // -------------------------------------------------------------------------------------------------------------
 
@@ -16,6 +18,11 @@ $($jobTitle).change(function() {
   } else {
     $otherJobTitle.hide();
   }
+});
+
+// Disables the "Select Job Role" option in the select menu
+$(function() {
+    $selectJob.prop("disabled", true);
 });
 
 // -------------------------------------------------------------------------------------------------------------
@@ -46,7 +53,14 @@ $($shirtDesign).change(function() {
   }
 });
 
+// Disables the "Select Theme" option in the select menu
+$(function() {
+    $selectTheme.prop("disabled", true);
+});
+
 // -------------------------------------------------------------------------------------------------------------
+
+// Variables
 const $activities = $(".activities");
 const $frameworks = $('input[name="js-frameworks"]');
 const $jsLibs = $('input[name="js-libs"]');
@@ -122,7 +136,7 @@ $('input:checkbox').on('change', function() {
 
 // -------------------------------------------------------------------------------------------------------------
 
-// variables
+// Variables
 const $cardInfo = $('#credit-card');
 const $paymentOption = $('#payment');
 const $paypal = $('#paypal');
@@ -160,16 +174,44 @@ $($paymentOption).change(function() {
   }
 });
 
+// NOTE: The user should not be able to select the "Select Payment Method" option from the payment select menu,
+    // because the user should not be able to submit the form without a chosen payment option.
 
+// Disables the "Select Payment Method" option in the select menu
+$(function() {
+    $selectMethod.prop("disabled", true);
+});
 
-// ??????????????????? H E L P ???????????????????
-// NOTE: The user should not be able to select the "Select Payment Method" option from the payment select menu, because the user should not be able to submit the form without a chosen payment option.
-$("$paymentOption option:selected").attr('disabled','disabled')
-       .siblings().removeAttr('disabled');
+// -------------------------------------------------------------------------------------------------------------
+
+// Variables
+const $name = $('#name');
+const $eMail = $('#mail');
+const $creditCardNum = $('#cc-num');
+const $zipCode = $('#zip');
+const $cvv = $('#cvv');
 
 // If any of the following validation errors exist, prevent the user from submitting the form:
+
 // Name field can't be blank.
+
+// $name.focusout(function() {
+//   if ($(this).val() === "") {
+//      $(this).css({border: '2px solid #ff0000', backgroundColor: '#ffe6e6'}).attr({placeholder: 'Please enter your name'}).attr({'data-valid': 'false'});
+//   } else if ($(this).val() > 0) {
+//     $(this).css({border: '', backgroundColor: ''}).attr({placeholder: ''}).attr({'data-valid': 'true'});
+//   }
+// });
+
 // Email field must be a validly formatted e-mail address (you don't have to check that it's a real e-mail address, just that it's formatted like one: dave@teamtreehouse.com for example.
+$eMail.focusout(function() {
+  if ($(this).val() != /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/) {
+     $(this).css({border: '2px solid #ff0000', backgroundColor: '#ffe6e6'}).attr({placeholder: 'Please enter a valid email address'}).attr({'data-valid': 'false'});
+  // } else if ($(this).val() > 0) {
+  //   $(this).css({border: '', backgroundColor: ''}).attr({placeholder: ''}).attr({'data-valid': 'true'});
+  // }
+}
+});
 // User must select at least one checkbox under the "Register for Activities" section of the form.
 // If the selected payment option is "Credit Card," make sure the user has supplied a Credit Card number, a Zip Code, and a 3 number CVV value before the form can be submitted.
 // Credit Card field should only accept a number between 13 and 16 digits.
