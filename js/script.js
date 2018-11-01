@@ -195,22 +195,21 @@ const $cvv = $('#cvv');
 
 // Name field can't be blank.
 
-// $name.focusout(function() {
-//   if ($(this).val() === "") {
-//      $(this).css({border: '2px solid #ff0000', backgroundColor: '#ffe6e6'}).attr({placeholder: 'Please enter your name'}).attr({'data-valid': 'false'});
-//   } else if ($(this).val() > 0) {
-//     $(this).css({border: '', backgroundColor: ''}).attr({placeholder: ''}).attr({'data-valid': 'true'});
-//   }
-// });
+$name.focusout(function() {
+  if ($(this).val() === "") {
+     $(this).css({border: '2px solid #ff0000', backgroundColor: '#ffe6e6'}).attr({placeholder: 'Please enter your name'}).attr({'data-valid': 'false'});
+  } else if ($(this).val() > "0") {
+    $(this).css({border: '', backgroundColor: ''}).attr({placeholder: ''}).attr({'data-valid': 'true'});
+  }
+});
 
 // Email field must be a validly formatted e-mail address (you don't have to check that it's a real e-mail address, just that it's formatted like one: dave@teamtreehouse.com for example.
 $eMail.focusout(function() {
-  if ($(this).val() != /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/) {
+  if ($(this).val() != /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/) {
      $(this).css({border: '2px solid #ff0000', backgroundColor: '#ffe6e6'}).attr({placeholder: 'Please enter a valid email address'}).attr({'data-valid': 'false'});
-  // } else if ($(this).val() > 0) {
-  //   $(this).css({border: '', backgroundColor: ''}).attr({placeholder: ''}).attr({'data-valid': 'true'});
-  // }
-}
+  } else if ($(this).val() > "0") {
+    $(this).css({border: '', backgroundColor: ''}).attr({placeholder: ''}).attr({'data-valid': 'true'});
+  }
 });
 // User must select at least one checkbox under the "Register for Activities" section of the form.
 // If the selected payment option is "Credit Card," make sure the user has supplied a Credit Card number, a Zip Code, and a 3 number CVV value before the form can be submitted.
