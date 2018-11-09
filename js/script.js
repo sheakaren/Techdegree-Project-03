@@ -196,23 +196,57 @@ const $cvv = $('#cvv');
 // Name field can't be blank.
 
 $name.focusout(function() {
-  if ($(this).val() === "") {
-     $(this).css({border: '2px solid #ff0000', backgroundColor: '#ffe6e6'}).attr({placeholder: 'Please enter your name'}).attr({'data-valid': 'false'});
-  } else if ($(this).val() > "0") {
-    $(this).css({border: '', backgroundColor: ''}).attr({placeholder: ''}).attr({'data-valid': 'true'});
-  }
+  if  ($(this).val() === "") {
+    $(this).css({backgroundColor: '#ff6666'}).attr({placeholder: 'Please enter your name'}).attr({'data-valid': 'false'});
+ } 
 });
 
+
 // Email field must be a validly formatted e-mail address (you don't have to check that it's a real e-mail address, just that it's formatted like one: dave@teamtreehouse.com for example.
+
+const emailVal = $('#mail').val();
+var emailReg = new RegExp('[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}');
+
 $eMail.focusout(function() {
-  if ($(this).val() != /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/) {
-     $(this).css({border: '2px solid #ff0000', backgroundColor: '#ffe6e6'}).attr({placeholder: 'Please enter a valid email address'}).attr({'data-valid': 'false'});
-  } else if ($(this).val() > "0") {
-    $(this).css({border: '', backgroundColor: ''}).attr({placeholder: ''}).attr({'data-valid': 'true'});
-  }
+  if(!emailReg.test(emailVal)) {
+    $(this).css({backgroundColor: '#ff6666'}).attr({placeholder: 'Please enter a valid email'}).attr({'data-valid': 'false'});
+  } 
 });
+
 // User must select at least one checkbox under the "Register for Activities" section of the form.
+// I'm getting there...
+
 // If the selected payment option is "Credit Card," make sure the user has supplied a Credit Card number, a Zip Code, and a 3 number CVV value before the form can be submitted.
+
 // Credit Card field should only accept a number between 13 and 16 digits.
+const creditVal = $('#cc-num').val();
+var cardReg = new RegExp('\d{13,16}');
+
+$creditCardNum.focusout(function() {
+  if(!cardReg.test(creditVal)) {
+    $(this).css({backgroundColor: '#ff6666'}).attr({placeholder: 'Card number must be 13-16 digits'}).attr({'data-valid': 'false'});
+  } 
+});
+
+
 // The Zip Code field should accept a 5-digit number.
+const zipVal = $('#zip').val();
+var zipReg = new RegExp('^\d{5}$');
+
+$zipCode.focusout(function() {
+  if(!zipReg.test(zipVal)) {
+    $(this).css({backgroundColor: '#ff6666'}).attr({placeholder: '5-digit zip'}).attr({'data-valid': 'false'});
+  } 
+});
+
 // The CVV should only accept a number that is exactly 3 digits long.
+
+const cvvVal = $('#cvv').val();
+var cvvReg = new RegExp('^\d{3}$');
+
+$cvv.focusout(function() {
+  if(!cvvReg.test(cvvVal)) {
+    $(this).css({backgroundColor: '#ff6666'}).attr({placeholder: '3-digit CVV'}).attr({'data-valid': 'false'});
+  } 
+});
+
