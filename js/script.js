@@ -196,21 +196,25 @@ const $cvv = $('#cvv');
 // Name field can't be blank.
 
 $name.focusout(function() {
-  if  ($(this).val() === "") {
-    $(this).css({backgroundColor: '#ff6666'}).attr({placeholder: 'Please enter your name'}).attr({'data-valid': 'false'});
- } 
+  if ($(this).val() === "") {
+    $(this).css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Please enter your name'});
+ } else if ($(this).val() > "0") {
+    $(this).css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: 'Please enter your name'});
+}
 });
 
 
 // Email field must be a validly formatted e-mail address (you don't have to check that it's a real e-mail address, just that it's formatted like one: dave@teamtreehouse.com for example.
 
 const emailVal = $('#mail').val();
-var emailReg = new RegExp('[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}');
+var emailReg = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,5}$');
 
 $eMail.focusout(function() {
-  if(!emailReg.test(emailVal)) {
-    $(this).css({backgroundColor: '#ff6666'}).attr({placeholder: 'Please enter a valid email'}).attr({'data-valid': 'false'});
-  } 
+  if (!emailReg.test(emailVal)) {
+    $(this).css({backgroundColor: '#ff6666'}).attr({placeholder: 'Please enter a valid email'});
+  } else {
+    $(this).css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: 'Please enter a valid email'});
+  }
 });
 
 // User must select at least one checkbox under the "Register for Activities" section of the form.
