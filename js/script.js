@@ -6,6 +6,23 @@ const $shirtColor = $("#colors-js-puns");
 const $classes = $("#classes");
 const $selectJob = $('#select-job');
 const $selectTheme = $('#select-theme');
+const $activities = $(".activities");
+const $frameworks = $('input[name="js-frameworks"]');
+const $jsLibs = $('input[name="js-libs"]');
+const $express = $('input[name="express"]');
+const $node = $('input[name="node"]');
+const $buildTools = $('input[name="build-tools"]');
+const $npm = $('input[name="npm"]');
+const $cardInfo = $('#credit-card');
+const $paymentOption = $('#payment');
+const $paypal = $('#paypal');
+const $bitcoin = $('#bitcoin');
+const $selectMethod = $('#selectMethod');
+const $name = $('#name');
+const $eMail = $('#mail');
+const $creditCardNum = $('#cc-num');
+const $zipCode = $('#zip');
+const $cvv = $('#cvv');
 
 // -------------------------------------------------------------------------------------------------------------
 
@@ -15,7 +32,15 @@ $otherJobTitle.hide();
 $($jobTitle).change(function() {
   if ($jobTitle.val() === "other") {
     $otherJobTitle.show();
-  } else {
+// Form validation for "other" job title option
+    $otherJobTitle.focusout(function() {
+        if ($(this).val() === "") {
+          $(this).css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Please describe your job'});
+      } else if ($(this).val() > "0") {
+          $(this).css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: 'Please describe your job'});
+      }
+      })
+    } else {
     $otherJobTitle.hide();
   }
 });
@@ -60,14 +85,6 @@ $(function() {
 
 // -------------------------------------------------------------------------------------------------------------
 
-// Variables
-const $activities = $(".activities");
-const $frameworks = $('input[name="js-frameworks"]');
-const $jsLibs = $('input[name="js-libs"]');
-const $express = $('input[name="express"]');
-const $node = $('input[name="node"]');
-const $buildTools = $('input[name="build-tools"]');
-const $npm = $('input[name="npm"]');
 // Some events are at the same day and time as others. If the user selects a workshop, don't allow selection of a workshop at the same day and time --
 // you should disable the checkbox and visually indicate that the workshop in the competing time slot isn't available.
 // When a user unchecks an activity, make sure that competing activities (if there are any) are no longer disabled.
@@ -108,6 +125,8 @@ $node.change(function() {
   }
 });
 
+// User must select at least one checkbox under the "Register for Activities" section of the form.
+
 // As a user selects activities, a running total should display below the list of checkboxes.
 // For example, if the user selects "Main Conference", then Total: $200 should appear. If they add 1 workshop, the total should change to Total: $300.
 
@@ -135,13 +154,6 @@ $('input:checkbox').on('change', function() {
           });
 
 // -------------------------------------------------------------------------------------------------------------
-
-// Variables
-const $cardInfo = $('#credit-card');
-const $paymentOption = $('#payment');
-const $paypal = $('#paypal');
-const $bitcoin = $('#bitcoin');
-const $selectMethod = $('#selectMethod');
 
 // Display the #credit-card div, and hide the "PayPal" and "Bitcoin" information.
 
@@ -184,13 +196,6 @@ $(function() {
 
 // -------------------------------------------------------------------------------------------------------------
 
-// Variables
-const $name = $('#name');
-const $eMail = $('#mail');
-const $creditCardNum = $('#cc-num');
-const $zipCode = $('#zip');
-const $cvv = $('#cvv');
-
 // If any of the following validation errors exist, prevent the user from submitting the form:
 
 // Name field can't be blank.
@@ -206,51 +211,51 @@ $name.focusout(function() {
 
 // Email field must be a validly formatted e-mail address (you don't have to check that it's a real e-mail address, just that it's formatted like one: dave@teamtreehouse.com for example.
 
-const emailVal = $('#mail').val();
-var emailReg = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,5}$');
+
 
 $eMail.focusout(function() {
-  if (!emailReg.test(emailVal)) {
-    $(this).css({backgroundColor: '#ff6666'}).attr({placeholder: 'Please enter a valid email'});
-  } else {
-    $(this).css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: 'Please enter a valid email'});
-  }
+  let $emailVal = $('#mail').val();
+  let $emailReg = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}$');
+    if (!$emailReg.test($emailVal)) {
+      $(this).css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Please enter a valid email'});
+    } else {
+      $(this).css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: 'Please enter a valid email'});
+    }
 });
 
 // User must select at least one checkbox under the "Register for Activities" section of the form.
-// I'm getting there...
+
 
 // If the selected payment option is "Credit Card," make sure the user has supplied a Credit Card number, a Zip Code, and a 3 number CVV value before the form can be submitted.
 
 // Credit Card field should only accept a number between 13 and 16 digits.
-const creditVal = $('#cc-num').val();
-var cardReg = new RegExp('\d{13,16}');
-
-$creditCardNum.focusout(function() {
-  if(!cardReg.test(creditVal)) {
-    $(this).css({backgroundColor: '#ff6666'}).attr({placeholder: 'Card number must be 13-16 digits'}).attr({'data-valid': 'false'});
-  } 
-});
-
-
 // The Zip Code field should accept a 5-digit number.
-const zipVal = $('#zip').val();
-var zipReg = new RegExp('^\d{5}$');
-
-$zipCode.focusout(function() {
-  if(!zipReg.test(zipVal)) {
-    $(this).css({backgroundColor: '#ff6666'}).attr({placeholder: '5-digit zip'}).attr({'data-valid': 'false'});
-  } 
-});
-
 // The CVV should only accept a number that is exactly 3 digits long.
 
-const cvvVal = $('#cvv').val();
-var cvvReg = new RegExp('^\d{3}$');
-
-$cvv.focusout(function() {
-  if(!cvvReg.test(cvvVal)) {
-    $(this).css({backgroundColor: '#ff6666'}).attr({placeholder: '3-digit CVV'}).attr({'data-valid': 'false'});
-  } 
+$creditCardNum.focusout(function() {
+  let $creditVal = $('#cc-num').val();
+  let $cardReg = new RegExp('^\d{13,16}$');
+    if(!$cardReg.test($creditVal)) {
+      $(this).css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: '13-16 digits'});
+    } else {
+      $(this).css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: '13-16 digits'});
+    }
+});    
+$zipCode.focusout(function() {
+  let $zipVal = $('#zip').val();
+  let $zipReg = new RegExp('^\d{5}$');
+    if (!$zipReg.test($zipVal)) {
+      $(this).css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: '5 digits'});
+    } else {
+      $(this).css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: '5 digits'});
+    }
 });
-
+$cvv.focusout(function() {
+  let $cvvVal = $('#cvv').val();
+  let $cvvReg = new RegExp('^\d{3}$');
+    if(!$cvvReg.test($cvvVal)) {
+      $(this).css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: '3 digits'});
+    } else {
+      $(this).css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: '3 digits'});
+    }
+});
