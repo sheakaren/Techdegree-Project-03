@@ -234,7 +234,7 @@ $eMail.focusout(function() {
 
 $creditCardNum.focusout(function() {
   let $creditVal = $('#cc-num').val();
-  let $cardReg = new RegExp('^\d{13,16}$');
+  let $cardReg = new RegExp('^\\d{13,16}$');
     if(!$cardReg.test($creditVal)) {
       $(this).css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: '13-16 digits'});
     } else {
@@ -243,7 +243,7 @@ $creditCardNum.focusout(function() {
 });    
 $zipCode.focusout(function() {
   let $zipVal = $('#zip').val();
-  let $zipReg = new RegExp('^\d{5}$');
+  let $zipReg = new RegExp('^\\d{5}$');
     if (!$zipReg.test($zipVal)) {
       $(this).css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: '5 digits'});
     } else {
@@ -252,7 +252,7 @@ $zipCode.focusout(function() {
 });
 $cvv.focusout(function() {
   let $cvvVal = $('#cvv').val();
-  let $cvvReg = new RegExp('^\d{3}$');
+  let $cvvReg = new RegExp('^\\d{3}$');
     if(!$cvvReg.test($cvvVal)) {
       $(this).css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: '3 digits'});
     } else {
