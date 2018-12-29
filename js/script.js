@@ -24,7 +24,12 @@ const $creditCardNum = $('#cc-num');
 const $zipCode = $('#zip');
 const $cvv = $('#cvv');
 const $submit = $('#submitButton');
-let isFormValid = false;
+let isNameValid = false;
+let isEmailValid = false;
+let isJobTitleValid = false;
+let isCreditCardValid = false;
+let isZipValid = false;
+let isCvvValid = false;
 
 // -------------------------------------------------------------------------------------------------------------
 
@@ -198,15 +203,16 @@ $(function() {
 //     e.preventDefault();
 //   }
 // });
+
 // Name field can't be blank.
   $name.focusout(function(e) {
     if ($(this).val() === "") {
       $(this).css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Please enter your name'});
-      isFormValid = false;
+      isNameValid = false;
       e.preventDefault();
   } else if ($(this).val() > "0") {
       $(this).css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: 'Please enter your name'});
-      isFormValid = true;
+      isNameValid = true;
   }
   });
 
@@ -216,11 +222,11 @@ $(function() {
     let $emailReg = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}$');
       if (!$emailReg.test($emailVal)) {
         $(this).css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Please enter a valid email'});
-        isFormValid = false;
+        isEmailValid = false;
         e.preventDefault();
       } else {
         $(this).css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: 'Please enter a valid email'});
-        isFormValid = true;
+        isEmailValid = true;
       }
   });
 
@@ -228,18 +234,18 @@ $(function() {
   $otherJobTitle.focusout(function(e) {
     if ($(this).val() === "") {
       $(this).css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Please describe your job'});
-      isFormValid = false;
+      isJobTitleValid = false;
       e.preventDefault();
     } else if ($(this).val() > "0") {
       $(this).css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: 'Please describe your job'});
-      isFormValid = true;
+      isJobTitleValid = true;
     }
   });
 
 // User must select at least one checkbox under the "Register for Activities" section of the form.
 // if($('.roles:checkbox:checked').length == 0) {
-//   e.preventDefault();
 //   isFormValid = false;
+//   e.preventDefault();
 // }
 
 // If the selected payment option is "Credit Card," make sure the user has supplied a Credit Card number, a Zip Code, and a 3 number CVV value before the form can be submitted.
@@ -250,11 +256,11 @@ $(function() {
     let $cardReg = new RegExp('^\\d{13,16}$');
       if(!$cardReg.test($creditVal)) {
         $(this).css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: '13-16 digits'});
-        isFormValid = false;
+        isCreditCardValid = false;
         e.preventDefault();
       } else {
         $(this).css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: '13-16 digits'});
-        isFormValid = true;
+        isCreditCardValid = true;
       }
   });
 
@@ -264,11 +270,11 @@ $(function() {
     let $zipReg = new RegExp('^\\d{5}$');
       if (!$zipReg.test($zipVal)) {
         $(this).css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: '5 digits'});
-        isFormValid = false;
+        isZipValid = false;
         e.preventDefault();
       } else {
         $(this).css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: '5 digits'});
-        isFormValid = true;
+        isZipValid = true;
       }
   });
 
@@ -278,19 +284,16 @@ $(function() {
     let $cvvReg = new RegExp('^\\d{3}$');
       if(!$cvvReg.test($cvvVal)) {
         $(this).css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: '3 digits'});
-        isFormValid = false;
+        isCvvValid = false;
         e.preventDefault();
       } else {
         $(this).css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: '3 digits'});
-        isFormValid = true;
+        isCvvValid = true;
       }
     });
 
     $submit.click(function(e) {
-      if (isFormValid = false) {
+      if (isNameValid || isEmailValid || isJobTitleValid || isCreditCardValid || isZipValid || isCvvValid) {
         e.preventDefault();
-      }
+        }    
     });
- 
- 
-
