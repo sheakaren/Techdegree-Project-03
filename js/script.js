@@ -286,7 +286,7 @@ $(function() {
       }
     });
 
-    $submit.addEventListener('click', function(e) {
+    $submit.click(function(e) {
       if (isFormValid = false) {
         e.preventDefault();
       }
