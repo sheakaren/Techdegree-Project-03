@@ -198,7 +198,7 @@ $(function() {
 
 // If any of the following validation errors exist, prevent the user from submitting the form:
 
-  $('button').on('click', function(e){ // submit button prevent...
+$('button').on('click', function(e){ // submit button prevent...
 
   // Name field can't be blank.
 
