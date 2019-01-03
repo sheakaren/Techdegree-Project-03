@@ -13,6 +13,7 @@ const $express = $('input[name="express"]');
 const $node = $('input[name="node"]');
 const $buildTools = $('input[name="build-tools"]');
 const $npm = $('input[name="npm"]');
+const $roles = ('.roles');
 const $cardInfo = $('#credit-card');
 const $paymentOption = $('#payment');
 const $paypal = $('#paypal');
@@ -198,93 +199,108 @@ $(function() {
 
 // If any of the following validation errors exist, prevent the user from submitting the form:
 
+
 $('button').on('click', function(e){ // submit button prevent...
 
   // Name field can't be blank.
 
     if ($name.val() === "") {
-      $name.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Please enter your name'});
-       isNameValid = false;
-      console.log('name invalid');
+      isNameValid = false;
       e.preventDefault();
+      $name.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Please enter your name'});
+      console.log('name invalid');
   } else if ($(this).val() > "0") {
-      $name.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: 'Please enter your name'});
-      isNameValid = true;
+    isNameValid = true;
+    $name.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: 'Please enter your name'});
   }
-
+});
   // Email field must be a validly formatted e-mail address (you don't have to check that it's a real e-mail address, just that it's formatted like one: dave@teamtreehouse.com for example.
+  $('button').on('click', function(e){ // submit button prevent...
 
   let $emailVal = $('#mail').val();
   let $emailReg = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}$');
     if (!$emailReg.test($emailVal)) {
-      $eMail.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Please enter a valid email'});
       isEmailValid = false;
       e.preventDefault();
+      $eMail.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Please enter a valid email'});
       console.log('email');
     } else {
-      $eMail.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: 'Please enter a valid email'});
       isEmailValid = true;
+      $eMail.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: 'Please enter a valid email'});
     }
-
+  });
   // Form validation for "other" job title option
+  $('button').on('click', function(e){ // submit button prevent...
 
   if ($otherJobTitle.val() === "") {
-    $otherJobTitle.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Please describe your job'});
     isJobTitleValid = false;
     e.preventDefault();
+    $otherJobTitle.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Please describe your job'});
     console.log('job title');
   } else if ($(this).val() > "0") {
-    $otherJobTitle.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: 'Please describe your job'});
     isJobTitleValid = true;
+    $otherJobTitle.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: 'Please describe your job'});
   }
-
+});
   // User must select at least one checkbox under the "Register for Activities" section of the form.
-  if($('.roles:checkbox:checked').length == 0) {
-    $activities.append('<br><div class="error"><font color="#ff0000">Please select at least one activity.</div>')
+  $('button').on('click', function(e){ // submit button prevent...
+
+  if($('.activities input:checkbox:checked').length < 1) {
     isCheckboxValid = false;
     e.preventDefault();
-  } 
-
+    $activities.append('<br><div class="error"><font color="#ff0000">Please select at least one activity.</div>')
+  } else {
+    isCheckboxValid = true;
+  }
+});
   // Credit Card field should only accept a number between 13 and 16 digits.
+  $('button').on('click', function(e){ // submit button prevent...
 
   let $creditVal = $('#cc-num').val();
   let $cardReg = new RegExp('^\\d{13,16}$');
     if(!$cardReg.test($creditVal)) {
-      $creditCardNum.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: '13-16 digits'});
       isCreditCardValid = false;
       e.preventDefault();
+      $creditCardNum.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: '13-16 digits'});
       console.log('credit card');
     } else {
-      $creditCardNum.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: '13-16 digits'});
       isCreditCardValid = true;
+      $creditCardNum.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: '13-16 digits'});
     }
-
+  });
   // The Zip Code field should accept a 5-digit number.
+  $('button').on('click', function(e){ // submit button prevent...
 
   let $zipVal = $('#zip').val();
   let $zipReg = new RegExp('^\\d{5}$');
     if (!$zipReg.test($zipVal)) {
-      $zipCode.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: '5 digits'});
       isZipValid = false;
       e.preventDefault();
+      $zipCode.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: '5 digits'});
       console.log('zip');
     } else {
-      $zipCode.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: '5 digits'});
       isZipValid = true;
+      $zipCode.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: '5 digits'});
     }
-
+  });
   // The CVV should only accept a number that is exactly 3 digits long.
+  $('button').on('click', function(e){ // submit button prevent...
 
   let $cvvVal = $('#cvv').val();
   let $cvvReg = new RegExp('^\\d{3}$');
     if(!$cvvReg.test($cvvVal)) {
-      $cvv.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: '3 digits'});
       isCvvValid = false;
       e.preventDefault();
+      $cvv.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: '3 digits'});
       console.log('cvv');
     } else {
-      $cvv.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: '3 digits'});
       isCvvValid = true;
+      $cvv.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: '3 digits'});
     }
-
   });
+
+  $('button').on('click', function(e){ 
+    if (!isNameValid || !isEmailValid || !isJobTitleValid || !isCheckboxValid || !isCreditCardValid || !isZipValid || !isCvvValid) {
+      e.preventDefault();
+    }
+    });
