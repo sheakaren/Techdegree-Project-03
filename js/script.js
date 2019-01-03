@@ -200,10 +200,10 @@ $(function() {
 // If any of the following validation errors exist, prevent the user from submitting the form:
 
 
-$('button').on('click', function(e){ // submit button prevent...
+// $('button').on('click', function(e){ // submit button prevent...
 
   // Name field can't be blank.
-
+  $name.focusout(function(e) {
     if ($name.val() === "") {
       isNameValid = false;
       e.preventDefault();
@@ -215,8 +215,8 @@ $('button').on('click', function(e){ // submit button prevent...
   }
 });
   // Email field must be a validly formatted e-mail address (you don't have to check that it's a real e-mail address, just that it's formatted like one: dave@teamtreehouse.com for example.
-  $('button').on('click', function(e){ // submit button prevent...
-
+  // $('button').on('click', function(e){ // submit button prevent...
+  $eMail.focusout(function(e) {
   let $emailVal = $('#mail').val();
   let $emailReg = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}$');
     if (!$emailReg.test($emailVal)) {
@@ -230,8 +230,8 @@ $('button').on('click', function(e){ // submit button prevent...
     }
   });
   // Form validation for "other" job title option
-  $('button').on('click', function(e){ // submit button prevent...
-
+  // $('button').on('click', function(e){ // submit button prevent...
+  $otherJobTitle.focusout(function(e) {
   if ($otherJobTitle.val() === "") {
     isJobTitleValid = false;
     e.preventDefault();
@@ -254,8 +254,8 @@ $('button').on('click', function(e){ // submit button prevent...
   }
 });
   // Credit Card field should only accept a number between 13 and 16 digits.
-  $('button').on('click', function(e){ // submit button prevent...
-
+  // $('button').on('click', function(e){ // submit button prevent...
+  $creditCardNum.focusout(function(e) {
   let $creditVal = $('#cc-num').val();
   let $cardReg = new RegExp('^\\d{13,16}$');
     if(!$cardReg.test($creditVal)) {
@@ -269,8 +269,8 @@ $('button').on('click', function(e){ // submit button prevent...
     }
   });
   // The Zip Code field should accept a 5-digit number.
-  $('button').on('click', function(e){ // submit button prevent...
-
+  // $('button').on('click', function(e){ // submit button prevent...
+  $zipCode.focusout(function(e) {
   let $zipVal = $('#zip').val();
   let $zipReg = new RegExp('^\\d{5}$');
     if (!$zipReg.test($zipVal)) {
@@ -284,8 +284,8 @@ $('button').on('click', function(e){ // submit button prevent...
     }
   });
   // The CVV should only accept a number that is exactly 3 digits long.
-  $('button').on('click', function(e){ // submit button prevent...
-
+  // $('button').on('click', function(e){ // submit button prevent...
+  $cvv.focusout(function(e) {
   let $cvvVal = $('#cvv').val();
   let $cvvReg = new RegExp('^\\d{3}$');
     if(!$cvvReg.test($cvvVal)) {
