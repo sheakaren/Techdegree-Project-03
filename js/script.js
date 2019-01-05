@@ -16,6 +16,9 @@ const $npm = $('input[name="npm"]');
 const $roles = ('.roles');
 const $cardInfo = $('#credit-card');
 const $paymentOption = $('#payment');
+const $creditOption = $('#credit');
+const $paypaloption = $('#paypalOption');
+const $bitcoinOption = $('#bitcoinOption');
 const $paypal = $('#paypal');
 const $bitcoin = $('#bitcoin');
 const $selectMethod = $('#selectMethod');
@@ -79,6 +82,8 @@ $($shirtDesign).change(function() {
   }
 });
 
+
+
 // Disables the "Select Theme" option in the select menu
 $(function() {
     $selectTheme.prop("disabled", true);
@@ -133,14 +138,19 @@ $node.change(function() {
 
 // Create a new div to display the Total
 $activities.append('<br><div class="totalDiv"><label name="total-to-pay" class="totalCost">Total: </label></div>');
+$activities.append('<br><div class="error"><font color="#ff0000">Please select at least one activity.</div>');
 
-// add variables related to the newly created DIV
+
+// add variables related to the newly created DIVs
 const $totalDiv = $(".totalDiv");
 const $totalCost = $(".totalCost");
 let $total = 0;
-
+const $error = $(".error");
 // Hide the div on load
 $totalDiv.hide();
+$error.hide();
+
+
 
 // Function to add total cost
 $('input:checkbox').on('change', function() {
@@ -148,6 +158,7 @@ $('input:checkbox').on('change', function() {
               $totalDiv.show();
               $total += +this.value;
               $totalCost.html('Total: $' + parseInt($total));
+              $error.hide();
             } else if ($(this).not(':checked')) {
               $total -= +this.value;
               $totalCost.html('Total: $' + parseInt($total));
@@ -214,7 +225,7 @@ $(function() {
   // Email field must be a validly formatted e-mail address (you don't have to check that it's a real e-mail address, just that it's formatted like one: dave@teamtreehouse.com for example.
   $eMail.focusout(function(e) {
   let $emailVal = $('#mail').val();
-  let $emailReg = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}$');
+  let $emailReg = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[.][a-zA-Z]{2,5}$');
     if (!$emailReg.test($emailVal)) {
       isEmailValid = false;
       $eMail.css({backgroundColor: '#ff6666', border: "2px solid #ff0000"}).attr({placeholder: 'Please enter a valid email'});
@@ -223,7 +234,8 @@ $(function() {
       $eMail.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: 'Please enter a valid email'});
     }
   });
-  // Credit Card field should only accept a number between 13 and 16 digits.
+  
+// Credit Card field should only accept a number between 13 and 16 digits.
   $creditCardNum.focusout(function(e) {
   let $creditVal = $('#cc-num').val();
   let $cardReg = new RegExp('^\\d{13,16}$');
@@ -233,8 +245,18 @@ $(function() {
     } else {
       isCreditCardValid = true;
       $creditCardNum.css({backgroundColor: '#99e699', border: "2px solid #33cc33"}).removeAttr({placeholder: '13-16 digits'});
-    }
+    } 
   });
+
+// If Paypal or Bitcoin is selected, form submit is still allowed
+  $($paymentOption).change(function() {
+    if ($paymentOption.val() == "paypal" || "bitcoin") {
+      isCreditCardValid = true;
+      isZipValid = true;
+      isCvvValid = true;
+    } 
+  });
+
   // The Zip Code field should accept a 5-digit number.
   $zipCode.focusout(function(e) {
   let $zipVal = $('#zip').val();
@@ -260,12 +282,14 @@ $(function() {
     }
   });
 
+
   // submit button prevent default for all of the above validation
   $('button').on('click', function(e){ 
       // User must select at least one checkbox under the "Register for Activities" section of the form.
     if($('.activities input:checkbox:checked').length < 1) {
+      e.preventDefault();
       isCheckboxValid = false;
-      $activities.append('<br><div class="error"><font color="#ff0000">Please select at least one activity.</div>')
+      $error.show();
     } else {
       isCheckboxValid = true;
     } 
@@ -279,11 +303,4 @@ $(function() {
     }
     });
 
-    // $activities.change(function() {
-    //   $(this).remove('<br><div class="error"><font color="#ff0000">Please select at least one activity.</div>')
-    // });
-    // $('input:checkbox').on('change', function() {
-    //   if ($(this).is(':checked')) {
-    //   $(this).remove('<br><div class="error"><font color="#ff0000">Please select at least one activity.</div>')
-    //       }
-    //     });
+   
